@@ -3,7 +3,6 @@ import Search from './Search';
 import Home from './Home';
 import Delete from './Delete';
 import Star from './star';
-// import Getinfo from './Getinfo';
 
 
 function App() {
@@ -42,23 +41,27 @@ function App() {
         <Home isHome={isHome}
           setIsHomeChecked={setIsHomeChecked} isTrash={isTrash} setIsTrashChecked={setIsTrashChecked}
           isStarred={isStarred} star={star} />
-          {/* <Search searchTerm={searchTerm} sendRemoveList={sendRemoveList} 
+          {
+            ((isHome===true))&&<Search searchTerm={searchTerm} sendRemoveList={sendRemoveList} 
             setSearchTerm={setSearchTerm}
              usersData={Data} setData={setData} 
-              select={select} setSelectTerm={setSelectTerm} /> */}
+              select={select} setSelectTerm={setSelectTerm} 
+              sendStarList={sendStarList} trashColor={trashColor} setTrashColor={setTrashColor} />
+          }
+          {
+            (isTrash === true)&&<Delete trash={trash} />
+          }
+          {
+            (star === true)&&<Star starArray={starArray} />
+          }
               {/* {
-                   (isTrash===false)?'':<Delete trash={trash} />             
-              } */}
-              {
-                (isTrash===false)?<Search searchTerm={searchTerm} sendRemoveList={sendRemoveList} 
+                (isTrash===false && star===false)?<Search searchTerm={searchTerm} sendRemoveList={sendRemoveList} 
                 setSearchTerm={setSearchTerm}
                  usersData={Data} setData={setData} 
                   select={select} setSelectTerm={setSelectTerm} 
-                  sendStarList={sendStarList} trashColor={trashColor} setTrashColor={setTrashColor} />:<Delete trash={trash} />
-              }
-              {
-                (star === false)?"":<Star starArray={starArray} />
-              }
+                  sendStarList={sendStarList} trashColor={trashColor} setTrashColor={setTrashColor} />:
+                  (isTrash===true)?<Delete trash={trash} />:<Star starArray={starArray} />
+              } */}
 
         
       </center>
