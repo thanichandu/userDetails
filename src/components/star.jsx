@@ -5,7 +5,7 @@ export default function Star({starArray}) {
 
   return (
     <>
-    <h1>Starred Messages</h1>
+    <h1>Starred Records</h1>
       <table style={{ width: "100%" }}>
             <tr>
                 <th>id</th>
