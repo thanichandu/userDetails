@@ -3,6 +3,7 @@ import Search from './Search';
 import Home from './Home';
 import Delete from './Delete';
 import Star from './star';
+import Trashphoto from './Trashphoto';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [star,isStarred] = useState(false);
   const [starArray,setStarArray] = useState([]);
   const [trashColor,setTrashColor] = useState('');
+  // const [recycleBin,setRecycleBin] = useState()
 
   useEffect(() => {
     fetch('https://mocki.io/v1/d1f16339-9aec-4696-b302-7fd0cb0db28b')
@@ -30,8 +32,25 @@ function App() {
 
   }
   function sendStarList(id,i){
-    setStarArray([...starArray,Data[i]]);
-    console.log("star array is" + starArray);
+
+
+    if (!starArray.includes(Data[i])) {
+      setStarArray([...starArray, Data[i]]);
+    }
+    else{
+      setStarArray([...starArray.filter((data) => data.id!==id)])
+    }
+    
+  }
+  function sendRecycleList(id,i){
+
+    console.log("refresh data is: " + trash[i].id);
+    console.log("index data is: " + i);
+
+
+    setData([...Data,trash[i]])
+    console.log(trash.filter((data) => data.id!==id ))
+    setTrash([...trash.filter((data) => data.id!==id )])
   }
 
 
@@ -46,22 +65,15 @@ function App() {
             setSearchTerm={setSearchTerm}
              usersData={Data} setData={setData} 
               select={select} setSelectTerm={setSelectTerm} 
-              sendStarList={sendStarList} trashColor={trashColor} setTrashColor={setTrashColor} />
+              sendStarList={sendStarList}
+               trashColor={trashColor} setTrashColor={setTrashColor} />
           }
           {
-            (isTrash === true)&&<Delete trash={trash} />
+            (isTrash === true)?(trash.length === 0)?(<Trashphoto/>):(<Delete trash={trash} sendRecycleList={sendRecycleList}/>):""
           }
           {
             (star === true)&&<Star starArray={starArray} />
           }
-              {/* {
-                (isTrash===false && star===false)?<Search searchTerm={searchTerm} sendRemoveList={sendRemoveList} 
-                setSearchTerm={setSearchTerm}
-                 usersData={Data} setData={setData} 
-                  select={select} setSelectTerm={setSelectTerm} 
-                  sendStarList={sendStarList} trashColor={trashColor} setTrashColor={setTrashColor} />:
-                  (isTrash===true)?<Delete trash={trash} />:<Star starArray={starArray} />
-              } */}
 
         
       </center>
@@ -70,14 +82,3 @@ function App() {
 }
 
 export default App;
-
-// {/* {
-//   (isHome===true && isTrash===false)&&(<><Search searchTerm={searchTerm} 
-//     setSearchTerm={setSearchTerm} usersData={data} setData={setData} select={select} setSelectTerm={setSelectTerm}/>
-//     <Getinfo usersData={data} /></>)
-// }
-// {
-//   (isTrash===true)&&(<Search searchTerm={searchTerm}
-//     setSearchTerm={setSearchTerm} usersData={data} setData={setData} select={select} setSelectTerm={setSelectTerm}/>)
-// } */}
-// {/* <Getinfo usersData={data} /> */}
