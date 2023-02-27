@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Delete({trash}) {
+export default function Delete({trash,sendRecycleList}) {
   return (
     <>
     <h1>Deleted Records</h1>
@@ -24,6 +24,7 @@ export default function Delete({trash}) {
                         <td>{eachObj.email}</td>
                         <td>{eachObj.gender}</td>
                         <td>{eachObj.ip_address}</td>
+                        <td onClick={() => sendRecycleList(eachObj.id,index)}><i class="fa fa-refresh"></i></td>
                     </tr>
 
                 ))
